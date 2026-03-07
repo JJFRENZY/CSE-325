@@ -1,0 +1,63 @@
+using System;
+using System.IO;
+using System.Text;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        string salesFolder = "sales";
+        string reportFile = "SalesSummary.txt";
+
+        GenerateSalesSummaryReport(salesFolder, reportFile);
+    }
+
+    static void GenerateSalesSummaryReport(string folderPath, string outputFile)
+    {
+        if (!Directory.Exists(folderPath))
+        {
+            Console.WriteLine("Sales folder not found.");
+            return;
+        }
+
+        StringBuilder report = new StringBuilder();
+        decimal totalSales = 0m;
+
+        List<(string fileName, decimal total)> details = new();
+
+        string[] files = Directory.GetFiles(folderPath, "*.txt");
+
+        foreach (string file in files)
+        {
+            decimal fileTotal = 0m;
+            string[] lines = File.ReadAllLines(file);
+
+            foreach (string line in lines)
+            {
+                if (decimal.TryParse(line, out decimal value))
+                {
+                    fileTotal += value;
+                }
+            }
+
+            totalSales += fileTotal;
+            details.Add((Path.GetFileName(file), fileTotal));
+        }
+
+        report.AppendLine("Sales Summary");
+        report.AppendLine("----------------------------");
+        report.AppendLine($" Total Sales: {totalSales:C}");
+        report.AppendLine();
+        report.AppendLine(" Details:");
+
+        foreach (var item in details)
+        {
+            report.AppendLine($"  {item.fileName}: {item.total:C}");
+        }
+
+        File.WriteAllText(outputFile, report.ToString());
+
+        Console.WriteLine(report.ToString());
+    }
+}
