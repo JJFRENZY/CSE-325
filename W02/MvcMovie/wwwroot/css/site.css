@@ -29,3 +29,12 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+
+/* Assignment requirement: add padding to input elements */
+input,
+select,
+textarea {
+  padding: 8px 12px;
+  margin: 5px;
+  box-sizing: border-box;
+}
