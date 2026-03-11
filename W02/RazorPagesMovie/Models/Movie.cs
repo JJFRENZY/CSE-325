@@ -16,4 +16,6 @@ public class Movie
     public string Genre { get; set; } = string.Empty;
 
     public decimal Price { get; set; }
+
+    public string Rating { get; set; } = string.Empty;
 }
