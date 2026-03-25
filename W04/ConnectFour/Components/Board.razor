@@ -1,15 +1,5 @@
 @inject GameState State
 
-<HeadContent>
-    <style>
-        :root {
-            --board-bg: @BoardColor;
-            --player1: @Player1Color;
-            --player2: @Player2Color;
-        }
-    </style>
-</HeadContent>
-
 <nav>
     @for (byte i = 0; i < 7; i++)
     {
@@ -26,7 +16,7 @@
     <span class="alert-info">@CurrentTurn</span>
 </article>
 
-<div>
+<div class="game-shell" style="@BoardStyle">
     <div class="board">
         @for (var i = 0; i < 42; i++)
         {
@@ -43,7 +33,6 @@
 </div>
 
 @code {
-    // 👇 NEW: string-based color parameters
     [Parameter] public string BoardColor { get; set; } = "#ffff00";
     [Parameter] public string Player1Color { get; set; } = "#ff0000";
     [Parameter] public string Player2Color { get; set; } = "#0000ff";
@@ -51,6 +40,8 @@
     private string[] pieces = new string[42];
     private string winnerMessage = string.Empty;
     private string errorMessage = string.Empty;
+
+    private string BoardStyle => $"--board-bg:{BoardColor}; --player1:{Player1Color}; --player2:{Player2Color};";
 
     private string CurrentTurn => (winnerMessage == string.Empty)
         ? $"Player {State.PlayerTurn}'s Turn"

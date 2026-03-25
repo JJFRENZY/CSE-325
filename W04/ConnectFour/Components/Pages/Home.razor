@@ -4,28 +4,58 @@
 
 <h3>Customize Your Board</h3>
 
-<div style="margin-bottom: 1rem;">
-    <label>Board Color: </label>
-    <input type="color" @bind="boardColor" />
-</div>
+@if (!gameStarted)
+{
+    <div style="margin-bottom: 1rem;">
+        <label>Board Color: </label>
+        <input type="color" @bind="boardColor" />
+    </div>
 
-<div style="margin-bottom: 1rem;">
-    <label>Player 1 Color: </label>
-    <input type="color" @bind="player1Color" />
-</div>
+    <div style="margin-bottom: 1rem;">
+        <label>Player 1 Color: </label>
+        <input type="color" @bind="player1Color" />
+    </div>
 
-<div style="margin-bottom: 1rem;">
-    <label>Player 2 Color: </label>
-    <input type="color" @bind="player2Color" />
-</div>
+    <div style="margin-bottom: 1rem;">
+        <label>Player 2 Color: </label>
+        <input type="color" @bind="player2Color" />
+    </div>
 
-<Board @rendermode="InteractiveServer"
-       BoardColor="boardColor"
-       Player1Color="player1Color"
-       Player2Color="player2Color" />
+    <button class="btn btn-primary" @onclick="StartGame">Start Game</button>
+}
+else
+{
+    <button class="btn btn-secondary" style="margin-bottom: 1rem;" @onclick="ResetSetup">
+        Change Colors
+    </button>
+
+    <Board @rendermode="InteractiveServer"
+           BoardColor="lockedBoardColor"
+           Player1Color="lockedPlayer1Color"
+           Player2Color="lockedPlayer2Color" />
+}
 
 @code {
-    private string boardColor = "#ffff00";   // yellow
-    private string player1Color = "#ff0000"; // red
-    private string player2Color = "#0000ff"; // blue
+    private string boardColor = "#ffff00";
+    private string player1Color = "#ff0000";
+    private string player2Color = "#0000ff";
+
+    private string lockedBoardColor = "#ffff00";
+    private string lockedPlayer1Color = "#ff0000";
+    private string lockedPlayer2Color = "#0000ff";
+
+    private bool gameStarted = false;
+
+    private void StartGame()
+    {
+        lockedBoardColor = boardColor;
+        lockedPlayer1Color = player1Color;
+        lockedPlayer2Color = player2Color;
+        gameStarted = true;
+    }
+
+    private void ResetSetup()
+    {
+        gameStarted = false;
+    }
 }
