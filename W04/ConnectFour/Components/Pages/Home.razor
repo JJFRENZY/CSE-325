@@ -1,4 +1,5 @@
 ﻿@page "/"
+@rendermode InteractiveServer
 
 <PageTitle>Connect Four</PageTitle>
 
@@ -29,8 +30,7 @@ else
         Change Colors
     </button>
 
-    <Board @rendermode="InteractiveServer"
-           BoardColor="lockedBoardColor"
+    <Board BoardColor="lockedBoardColor"
            Player1Color="lockedPlayer1Color"
            Player2Color="lockedPlayer2Color" />
 }
