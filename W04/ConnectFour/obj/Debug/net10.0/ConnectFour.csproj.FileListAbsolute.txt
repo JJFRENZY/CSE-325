@@ -19,6 +19,7 @@
 /Users/jjfrenzy/CSE-325/W04/ConnectFour/obj/Debug/net10.0/rjimswa.dswa.cache.json
 /Users/jjfrenzy/CSE-325/W04/ConnectFour/obj/Debug/net10.0/rjsmrazor.dswa.cache.json
 /Users/jjfrenzy/CSE-325/W04/ConnectFour/obj/Debug/net10.0/rjsmcshtml.dswa.cache.json
+/Users/jjfrenzy/CSE-325/W04/ConnectFour/obj/Debug/net10.0/scopedcss/Components/Board.razor.rz.scp.css
 /Users/jjfrenzy/CSE-325/W04/ConnectFour/obj/Debug/net10.0/scopedcss/Components/Layout/MainLayout.razor.rz.scp.css
 /Users/jjfrenzy/CSE-325/W04/ConnectFour/obj/Debug/net10.0/scopedcss/Components/Layout/NavMenu.razor.rz.scp.css
 /Users/jjfrenzy/CSE-325/W04/ConnectFour/obj/Debug/net10.0/scopedcss/Components/Layout/ReconnectModal.razor.rz.scp.css
@@ -72,6 +73,8 @@
 /Users/jjfrenzy/CSE-325/W04/ConnectFour/obj/Debug/net10.0/compressed/6c2w37mbjq-{0}-cyz5k529gx-cyz5k529gx.gz
 /Users/jjfrenzy/CSE-325/W04/ConnectFour/obj/Debug/net10.0/compressed/38grwflvg6-{0}-ax6tuj8tun-ax6tuj8tun.gz
 /Users/jjfrenzy/CSE-325/W04/ConnectFour/obj/Debug/net10.0/compressed/fecu9w6d36-{0}-zr4b1gdhaw-zr4b1gdhaw.gz
+/Users/jjfrenzy/CSE-325/W04/ConnectFour/obj/Debug/net10.0/compressed/8t7ubqbmk6-{0}-xrc5uj4h16-xrc5uj4h16.gz
+/Users/jjfrenzy/CSE-325/W04/ConnectFour/obj/Debug/net10.0/compressed/qps0edvuu1-{0}-xrc5uj4h16-xrc5uj4h16.gz
 /Users/jjfrenzy/CSE-325/W04/ConnectFour/obj/Debug/net10.0/staticwebassets.build.json
 /Users/jjfrenzy/CSE-325/W04/ConnectFour/obj/Debug/net10.0/staticwebassets.build.json.cache
 /Users/jjfrenzy/CSE-325/W04/ConnectFour/obj/Debug/net10.0/staticwebassets.development.json
@@ -82,6 +85,3 @@
 /Users/jjfrenzy/CSE-325/W04/ConnectFour/obj/Debug/net10.0/ConnectFour.pdb
 /Users/jjfrenzy/CSE-325/W04/ConnectFour/obj/Debug/net10.0/ConnectFour.genruntimeconfig.cache
 /Users/jjfrenzy/CSE-325/W04/ConnectFour/obj/Debug/net10.0/ref/ConnectFour.dll
-/Users/jjfrenzy/CSE-325/W04/ConnectFour/obj/Debug/net10.0/scopedcss/Components/Board.razor.rz.scp.css
-/Users/jjfrenzy/CSE-325/W04/ConnectFour/obj/Debug/net10.0/compressed/8t7ubqbmk6-{0}-cw3eif37fl-cw3eif37fl.gz
-/Users/jjfrenzy/CSE-325/W04/ConnectFour/obj/Debug/net10.0/compressed/qps0edvuu1-{0}-cw3eif37fl-cw3eif37fl.gz

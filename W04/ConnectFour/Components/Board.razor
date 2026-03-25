@@ -1,6 +1,82 @@
 @inject GameState State
 
-<nav>
+<style>
+    .game-shell {
+        position: relative;
+        display: inline-block;
+        width: 30em;
+        height: 24em;
+        margin-top: 1rem;
+    }
+
+    .cf-nav {
+        width: 30em;
+        display: inline-flex;
+        margin-left: 10px;
+        margin-bottom: 0.5rem;
+    }
+
+    .cf-nav span {
+        width: 4em;
+        text-align: center;
+        cursor: pointer;
+        font-size: 1.1rem;
+    }
+
+    .cf-board {
+        width: 30em;
+        height: 24em;
+        display: flex;
+        flex-wrap: wrap;
+        box-sizing: border-box;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+    }
+
+    .cf-cell {
+        width: 4em;
+        height: 4em;
+        box-sizing: border-box;
+        padding: 4px;
+        position: relative;
+    }
+
+    .cf-hole {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: white;
+        display: block;
+    }
+
+    .piece {
+        width: 3.5em;
+        height: 3.5em;
+        border-radius: 50%;
+        position: absolute;
+        z-index: 5;
+        top: 0;
+    }
+
+    .col0 { left: calc(0em + 9px); }
+    .col1 { left: calc(4em + 9px); }
+    .col2 { left: calc(8em + 9px); }
+    .col3 { left: calc(12em + 9px); }
+    .col4 { left: calc(16em + 9px); }
+    .col5 { left: calc(20em + 9px); }
+    .col6 { left: calc(24em + 9px); }
+
+    .drop1 { transform: translateY(1.27em); }
+    .drop2 { transform: translateY(5.27em); }
+    .drop3 { transform: translateY(9.27em); }
+    .drop4 { transform: translateY(13.27em); }
+    .drop5 { transform: translateY(17.27em); }
+    .drop6 { transform: translateY(21.27em); }
+</style>
+
+<nav class="cf-nav">
     @for (byte i = 0; i < 7; i++)
     {
         var col = i;
@@ -16,19 +92,23 @@
     <span class="alert-info">@CurrentTurn</span>
 </article>
 
-<div class="game-shell" style="@BoardStyle">
-    <div class="board">
+<div class="game-shell">
+    <div class="cf-board" style="background-color:@BoardColor; border:6px solid @BoardColor;">
         @for (var i = 0; i < 42; i++)
         {
-            <span class="container">
-                <span></span>
+            <span class="cf-cell">
+                <span class="cf-hole"></span>
             </span>
         }
     </div>
 
     @for (var i = 0; i < 42; i++)
     {
-        <span class="@pieces[i]"></span>
+        if (!string.IsNullOrWhiteSpace(pieces[i]))
+        {
+            var pieceColor = pieces[i].Contains("player1") ? Player1Color : Player2Color;
+            <span class="piece @pieces[i]" style="background-color:@pieceColor; box-shadow:0 0 0 4px @pieceColor;"></span>
+        }
     }
 </div>
 
@@ -41,13 +121,11 @@
     private string winnerMessage = string.Empty;
     private string errorMessage = string.Empty;
 
-    private string BoardStyle => $"--board-bg:{BoardColor}; --player1:{Player1Color}; --player2:{Player2Color};";
-
-    private string CurrentTurn => (winnerMessage == string.Empty)
+    private string CurrentTurn => string.IsNullOrEmpty(winnerMessage)
         ? $"Player {State.PlayerTurn}'s Turn"
         : "";
 
-    private string ResetStyle => (winnerMessage == string.Empty)
+    private string ResetStyle => string.IsNullOrEmpty(winnerMessage)
         ? "display: none;"
         : "";
 
