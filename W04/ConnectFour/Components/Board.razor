@@ -16,32 +16,15 @@
     }
 </div>
 
-<div style="display:grid; grid-template-columns: repeat(7, 60px); gap: 8px; background:@BoardColor; padding:12px; width:max-content; border-radius:12px;">
+<div style="@BoardContainerStyle">
     @for (int row = 0; row < 6; row++)
     {
         @for (int col = 0; col < 7; col++)
         {
             var cell = State.GetCell(row, col);
-            var color = cell switch
-            {
-                1 => Player1Color,
-                2 => Player2Color,
-                _ => "#ffffff"
-            };
+            var cellStyle = GetCellStyle(cell);
 
-            <div style="
-                width:60px;
-                height:60px;
-                border-radius:50%;
-                background-color:@color;
-                border:3px solid #444;
-                display:flex;
-                align-items:center;
-                justify-content:center;
-                font-weight:bold;
-                color:black;">
-                @(cell == 0 ? "" : cell.ToString())
-            </div>
+            <div style="@cellStyle"></div>
         }
     }
 </div>
@@ -61,6 +44,21 @@
     private string ResetStyle => string.IsNullOrEmpty(winnerMessage)
         ? "display:none;"
         : "";
+
+    private string BoardContainerStyle =>
+        $"display:grid; grid-template-columns: repeat(7, 60px); gap: 8px; background-color:{BoardColor}; padding:12px; width:max-content; border-radius:12px;";
+
+    private string GetCellStyle(int cell)
+    {
+        var color = cell switch
+        {
+            1 => Player1Color,
+            2 => Player2Color,
+            _ => "#ffffff"
+        };
+
+        return $"width:60px; height:60px; border-radius:50%; background-color:{color}; border:3px solid #333; box-shadow: inset 0 4px 8px rgba(0,0,0,0.2);";
+    }
 
     protected override void OnInitialized()
     {
