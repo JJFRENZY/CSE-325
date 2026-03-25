@@ -29,6 +29,8 @@ public class GameState
         CurrentTurn = 0;
     }
 
+    public int GetCell(int row, int col) => board[row, col];
+
     public int PlayPiece(byte col)
     {
         if (col > 6)
@@ -41,12 +43,9 @@ public class GameState
             if (board[row, col] == 0)
             {
                 board[row, col] = PlayerTurn;
-                int landingRow = row + 1;
-
                 CurrentTurn++;
                 PlayerTurn = PlayerTurn == 1 ? 2 : 1;
-
-                return landingRow;
+                return row;
             }
         }
 
@@ -60,50 +59,34 @@ public class GameState
             for (int col = 0; col < 7; col++)
             {
                 int player = board[row, col];
-                if (player == 0)
-                {
-                    continue;
-                }
+                if (player == 0) continue;
 
                 if (col <= 3 &&
                     board[row, col + 1] == player &&
                     board[row, col + 2] == player &&
                     board[row, col + 3] == player)
-                {
                     return player == 1 ? WinState.Player1_Wins : WinState.Player2_Wins;
-                }
 
                 if (row <= 2 &&
                     board[row + 1, col] == player &&
                     board[row + 2, col] == player &&
                     board[row + 3, col] == player)
-                {
                     return player == 1 ? WinState.Player1_Wins : WinState.Player2_Wins;
-                }
 
                 if (row <= 2 && col <= 3 &&
                     board[row + 1, col + 1] == player &&
                     board[row + 2, col + 2] == player &&
                     board[row + 3, col + 3] == player)
-                {
                     return player == 1 ? WinState.Player1_Wins : WinState.Player2_Wins;
-                }
 
                 if (row >= 3 && col <= 3 &&
                     board[row - 1, col + 1] == player &&
                     board[row - 2, col + 2] == player &&
                     board[row - 3, col + 3] == player)
-                {
                     return player == 1 ? WinState.Player1_Wins : WinState.Player2_Wins;
-                }
             }
         }
 
-        if (CurrentTurn >= 42)
-        {
-            return WinState.Tie;
-        }
-
-        return WinState.None;
+        return CurrentTurn >= 42 ? WinState.Tie : WinState.None;
     }
 }

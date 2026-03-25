@@ -1,113 +1,47 @@
 @inject GameState State
 
-<style>
-    .game-shell {
-        position: relative;
-        display: inline-block;
-        width: 30em;
-        height: 24em;
-        margin-top: 1rem;
-    }
-
-    .cf-nav {
-        width: 30em;
-        display: inline-flex;
-        margin-left: 10px;
-        margin-bottom: 0.5rem;
-    }
-
-    .cf-nav span {
-        width: 4em;
-        text-align: center;
-        cursor: pointer;
-        font-size: 1.1rem;
-    }
-
-    .cf-board {
-        width: 30em;
-        height: 24em;
-        display: flex;
-        flex-wrap: wrap;
-        box-sizing: border-box;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 1;
-    }
-
-    .cf-cell {
-        width: 4em;
-        height: 4em;
-        box-sizing: border-box;
-        padding: 4px;
-        position: relative;
-    }
-
-    .cf-hole {
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        background: white;
-        display: block;
-    }
-
-    .piece {
-        width: 3.5em;
-        height: 3.5em;
-        border-radius: 50%;
-        position: absolute;
-        z-index: 5;
-        top: 0;
-    }
-
-    .col0 { left: calc(0em + 9px); }
-    .col1 { left: calc(4em + 9px); }
-    .col2 { left: calc(8em + 9px); }
-    .col3 { left: calc(12em + 9px); }
-    .col4 { left: calc(16em + 9px); }
-    .col5 { left: calc(20em + 9px); }
-    .col6 { left: calc(24em + 9px); }
-
-    .drop1 { transform: translateY(1.27em); }
-    .drop2 { transform: translateY(5.27em); }
-    .drop3 { transform: translateY(9.27em); }
-    .drop4 { transform: translateY(13.27em); }
-    .drop5 { transform: translateY(17.27em); }
-    .drop6 { transform: translateY(21.27em); }
-</style>
-
-<nav class="cf-nav">
-    @for (byte i = 0; i < 7; i++)
-    {
-        var col = i;
-        <span title="Click to play a piece" @onclick="() => PlayPiece(col)">🔽</span>
-    }
-</nav>
-
-<article>
+<div style="margin-bottom: 1rem;">
     @winnerMessage
     <button style="@ResetStyle" @onclick="ResetGame">Reset the game</button>
     <br />
-    <span class="alert-danger">@errorMessage</span>
-    <span class="alert-info">@CurrentTurn</span>
-</article>
+    <span class="text-danger">@errorMessage</span>
+    <span>@CurrentTurn</span>
+</div>
 
-<div class="game-shell">
-    <div class="cf-board" style="background-color:@BoardColor; border:6px solid @BoardColor;">
-        @for (var i = 0; i < 42; i++)
-        {
-            <span class="cf-cell">
-                <span class="cf-hole"></span>
-            </span>
-        }
-    </div>
-
-    @for (var i = 0; i < 42; i++)
+<div style="display:grid; grid-template-columns: repeat(7, 60px); gap: 8px; margin-bottom: 12px;">
+    @for (byte col = 0; col < 7; col++)
     {
-        if (!string.IsNullOrWhiteSpace(pieces[i]))
+        var c = col;
+        <button class="btn btn-sm btn-secondary" @onclick="() => PlayPiece(c)">▼</button>
+    }
+</div>
+
+<div style="display:grid; grid-template-columns: repeat(7, 60px); gap: 8px; background:@BoardColor; padding:12px; width:max-content; border-radius:12px;">
+    @for (int row = 0; row < 6; row++)
+    {
+        @for (int col = 0; col < 7; col++)
         {
-            var pieceColor = pieces[i].Contains("player1") ? Player1Color : Player2Color;
-            <span class="piece @pieces[i]" style="background-color:@pieceColor; box-shadow:0 0 0 4px @pieceColor;"></span>
+            var cell = State.GetCell(row, col);
+            var color = cell switch
+            {
+                1 => Player1Color,
+                2 => Player2Color,
+                _ => "#ffffff"
+            };
+
+            <div style="
+                width:60px;
+                height:60px;
+                border-radius:50%;
+                background-color:@color;
+                border:3px solid #444;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                font-weight:bold;
+                color:black;">
+                @(cell == 0 ? "" : cell.ToString())
+            </div>
         }
     }
 </div>
@@ -117,7 +51,6 @@
     [Parameter] public string Player1Color { get; set; } = "#ff0000";
     [Parameter] public string Player2Color { get; set; } = "#0000ff";
 
-    private string[] pieces = new string[42];
     private string winnerMessage = string.Empty;
     private string errorMessage = string.Empty;
 
@@ -126,7 +59,7 @@
         : "";
 
     private string ResetStyle => string.IsNullOrEmpty(winnerMessage)
-        ? "display: none;"
+        ? "display:none;"
         : "";
 
     protected override void OnInitialized()
@@ -140,11 +73,7 @@
 
         try
         {
-            var player = State.PlayerTurn;
-            var turn = State.CurrentTurn;
-            var landingRow = State.PlayPiece(col);
-
-            pieces[turn] = $"player{player} col{col} drop{landingRow}";
+            State.PlayPiece(col);
         }
         catch (ArgumentException ex)
         {
@@ -158,13 +87,15 @@
             GameState.WinState.Tie => "It's a tie!",
             _ => ""
         };
+
+        StateHasChanged();
     }
 
-    void ResetGame()
+    private void ResetGame()
     {
         State.ResetBoard();
         winnerMessage = string.Empty;
         errorMessage = string.Empty;
-        pieces = new string[42];
+        StateHasChanged();
     }
 }
