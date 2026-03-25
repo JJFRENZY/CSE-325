@@ -1,5 +1,15 @@
 @inject GameState State
 
+<HeadContent>
+    <style>
+        :root {
+            --board-bg: yellow;
+            --player1: red;
+            --player2: blue;
+        }
+    </style>
+</HeadContent>
+
 <nav>
     @for (byte i = 0; i < 7; i++)
     {

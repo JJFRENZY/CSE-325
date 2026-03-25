@@ -1,0 +1,22 @@
+div.board[b-q4iafmij9j] {
+    margin-top: 1em;
+    width: 30em;
+    height: 24em;
+    display: flex;
+    flex-wrap: wrap;
+    border-left: 10px solid var(--board-bg);
+}
+
+span.container[b-q4iafmij9j] {
+    width: 4em;
+    height: 4em;
+    padding: 4px;
+}
+
+.container span[b-q4iafmij9j] {
+    width: 3.5em;
+    height: 3.5em;
+    border-radius: 50%;
+    box-shadow: 0 0 0 3em var(--board-bg);
+    display: block;
+}

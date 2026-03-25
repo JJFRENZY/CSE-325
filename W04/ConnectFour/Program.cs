@@ -1,3 +1,4 @@
+using ConnectFour;
 using ConnectFour.Components;
 
 var builder = WebApplication.CreateBuilder(args);
