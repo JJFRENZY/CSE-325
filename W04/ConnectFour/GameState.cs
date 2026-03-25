@@ -65,7 +65,6 @@ public class GameState
                     continue;
                 }
 
-                // Horizontal
                 if (col <= 3 &&
                     board[row, col + 1] == player &&
                     board[row, col + 2] == player &&
@@ -74,7 +73,6 @@ public class GameState
                     return player == 1 ? WinState.Player1_Wins : WinState.Player2_Wins;
                 }
 
-                // Vertical
                 if (row <= 2 &&
                     board[row + 1, col] == player &&
                     board[row + 2, col] == player &&
@@ -83,7 +81,6 @@ public class GameState
                     return player == 1 ? WinState.Player1_Wins : WinState.Player2_Wins;
                 }
 
-                // Diagonal down-right
                 if (row <= 2 && col <= 3 &&
                     board[row + 1, col + 1] == player &&
                     board[row + 2, col + 2] == player &&
@@ -92,7 +89,6 @@ public class GameState
                     return player == 1 ? WinState.Player1_Wins : WinState.Player2_Wins;
                 }
 
-                // Diagonal up-right
                 if (row >= 3 && col <= 3 &&
                     board[row - 1, col + 1] == player &&
                     board[row - 2, col + 2] == player &&
