@@ -2,4 +2,30 @@
 
 <PageTitle>Home</PageTitle>
 
-<Board @rendermode="InteractiveServer" />
+<h3>Customize Your Board</h3>
+
+<div style="margin-bottom: 1rem;">
+    <label>Board Color: </label>
+    <input type="color" @bind="boardColor" />
+</div>
+
+<div style="margin-bottom: 1rem;">
+    <label>Player 1 Color: </label>
+    <input type="color" @bind="player1Color" />
+</div>
+
+<div style="margin-bottom: 1rem;">
+    <label>Player 2 Color: </label>
+    <input type="color" @bind="player2Color" />
+</div>
+
+<Board @rendermode="InteractiveServer"
+       BoardColor="boardColor"
+       Player1Color="player1Color"
+       Player2Color="player2Color" />
+
+@code {
+    private string boardColor = "#000000";
+    private string player1Color = "#008000";
+    private string player2Color = "#800080";
+}

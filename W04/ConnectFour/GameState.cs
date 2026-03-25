@@ -41,7 +41,7 @@ public class GameState
             if (board[row, col] == 0)
             {
                 board[row, col] = PlayerTurn;
-                int landingRow = 6 - row;
+                int landingRow = row + 1;
 
                 CurrentTurn++;
                 PlayerTurn = PlayerTurn == 1 ? 2 : 1;
